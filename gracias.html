@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gracias por contactarnos - Cobas Taekwondo</title>
+    <meta name="description" content="Gracias por contactar con Cobas Taekwondo. Te responderemos dentro de 24 horas.">
+    
+    <!-- Mismos CSS que tu sitio principal -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos específicos para la página de gracias */
+        .thank-you-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(132, 113, 34, 0.9), rgba(180, 2, 2, 0.8)), url('../images/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .thank-you-container {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 50px 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(132, 113, 34, 0.3);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #28a745;
+        }
+
+        .thank-you-container h1 {
+            color: #847122;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .thank-you-container p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .next-steps {
+            background: #f8f6f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid #847122;
+        }
+
+        .next-steps h3 {
+            color: #847122;
+            margin-bottom: 15px;
+        }
+
+        .next-steps ul {
+            text-align: left;
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .next-steps li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .contact-info {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn-home {
+            background: #847122;
+            color: white;
+        }
+
+        .btn-home:hover {
+            background: #b40202;
+            transform: translateY(-2px);
+        }
+
+        .btn-courses {
+            background: transparent;
+            color: #847122;
+            border: 2px solid #847122;
+        }
+
+        .btn-courses:hover {
+            background: #847122;
+            color: white;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .thank-you-container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Estilos responsivos específicos */
+        @media (max-width: 768px) {
+            .thank-you-container {
+                padding: 40px 25px;
+                margin: 20px;
+            }
+
+            .thank-you-container h1 {
+                font-size: 2rem;
+            }
+
+            .success-icon {
+                font-size: 3rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn-group .btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .thank-you-container {
+                padding: 30px 20px;
+            }
+
+            .thank-you-container h1 {
+                font-size: 1.8rem;
+            }
+
+            .thank-you-container p {
+                font-size: 1.1rem;
+            }
+
+            .next-steps, .contact-info {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="thank-you-page">
+        <div class="thank-you-container">
+            <div class="success-icon">✅</div>
+            
+            <h1>¡Mensaje Enviado con Éxito!</h1>
+            
+            <p>Gracias por contactar con <strong>Cobas Taekwondo</strong>. Hemos recibido tu mensaje correctamente.</p>
+            
+            <div class="contact-info">
+                <p><strong>📧 Te contactaremos dentro de las próximas 24 horas</strong></p>
+                <p>Si tienes alguna urgencia, no dudes en llamarnos:</p>
+                <p style="font-size: 1.3rem; color: #b40202; font-weight: bold;">📞 +1 234 567 890</p>
+            </div>
+
+            <div class="next-steps">
+                <h3>¿Qué puedes hacer mientras tanto?</h3>
+                <ul>
+                    <li>📋 Revisar nuestros programas y horarios</li>
+                    <li>🎯 Conocer a nuestros instructores certificados</li>
+                    <li>📍 Ver nuestra ubicación y instalaciones</li>
+                    <li>⏰ Prepararte para tu primera clase</li>
+                </ul>
+            </div>
+
+            <div class="btn-group">
+                <a href="index.html" class="btn btn-home">🏠 Volver al Inicio</a>
+                <a href="index.html#courses" class="btn btn-courses">🎯 Ver Nuestros Cursos</a>
+                <a href="index.html#schedule" class="btn btn-courses">⏰ Consultar Horarios</a>
+            </div>
+
+            <p style="margin-top: 25px; font-size: 0.9rem; color: #666;">
+                <em>¡Esperamos verte pronto en nuestro dojo!</em>
+            </p>
+        </div>
+    </div>
+
+    <!-- JavaScript para redirección automática opcional -->
+    <script>
+        // Redirección automática después de 30 segundos
+        setTimeout(function() {
+            window.location.href = 'index.html';
+        }, 30000); // 30 segundos
+
+        // Contador para mostrar en pantalla
+        let seconds = 30;
+        const countdownElement = document.createElement('div');
+        countdownElement.style.marginTop = '15px';
+        countdownElement.style.fontSize = '0.9em';
+        countdownElement.style.color = '#666';
+        countdownElement.innerHTML = `Serás redirigido automáticamente en <span id="countdown">${seconds}</span> segundos...`;
+        
+        document.querySelector('.thank-you-container').appendChild(countdownElement);
+
+        const countdown = setInterval(function() {
+            seconds--;
+            document.getElementById('countdown').textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(countdown);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
