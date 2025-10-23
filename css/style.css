@@ -1,14 +1,14 @@
-/* Variables de colores */
+/* Variables de colores - Cobas Taekwondo */
 :root {
-    --primary: #1a237e;
-    --secondary: #b71c1c;
-    --accent: #ffab00;
-    --light: #f5f5f5;
-    --dark: #212121;
-    --text: #333333;
+    --primary: #847122;
+    --secondary: #b40202;
+    --accent: #d4b456;
+    --light: #f8f6f0;
+    --dark: #2c2a24;
+    --text: #3a3629;
     --text-light: #666666;
     --white: #ffffff;
-    --gray: #e0e0e0;
+    --gray: #e8e6df;
     
     --font-primary: 'Inter', sans-serif;
     
@@ -19,11 +19,15 @@
     --transition: all 0.3s ease;
 }
 
-/* Estilos generales */
+/* Reset y estilos base */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -176,7 +180,7 @@ p {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/hero-bg.jpg');
+    background: linear-gradient(rgba(132, 113, 34, 0.8), rgba(180, 2, 2, 0.7)), url('../images/hero-bg.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -197,6 +201,7 @@ p {
     font-size: 1.2rem;
     max-width: 700px;
     margin: 0 auto 30px;
+    opacity: 0.9;
 }
 
 /* Sección Quiénes Somos */
@@ -554,7 +559,7 @@ p {
 .form-group select:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+    box-shadow: 0 0 0 2px rgba(132, 113, 34, 0.1);
 }
 
 .form-group textarea {

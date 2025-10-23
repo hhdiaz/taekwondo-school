@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hhdiaz.github.io/taekwondo-school/sitemap.xml
