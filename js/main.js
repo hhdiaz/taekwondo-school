@@ -36,7 +36,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Formulario de contacto
 // Formspree Integration 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🔧 Inicializando formulario de contacto...');
+    // console.log('🔧 Inicializando formulario de contacto...');
     
     const contactForm = document.getElementById('contactForm');
     // debug
