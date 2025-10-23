@@ -131,7 +131,21 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding: 10px 0;
+}
+
+/* Logo styles */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: -25px;
+}
+
+.logo-img {
+    width: 60px;  /* Ajusta según el tamaño de tu logo */
+    height: 60px;
+    object-fit: contain;
 }
 
 .logo h1 {

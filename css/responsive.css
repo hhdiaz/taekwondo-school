@@ -69,6 +69,14 @@
     .contact-form {
         padding: 30px 20px;
     }
+      .logo-img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .logo h1 {
+        font-size: 1.5rem;
+    }
 }
 
 /* Móviles */
@@ -97,5 +105,17 @@
     
     .schedule-card {
         padding: 20px;
+    }
+    .logo {
+        gap: 10px;
+    }
+    
+    .logo-img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .logo h1 {
+        font-size: 1.3rem;
     }
 }
