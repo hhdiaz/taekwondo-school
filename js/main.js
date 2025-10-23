@@ -34,23 +34,70 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // Formulario de contacto
+// Formspree Integration
 const contactForm = document.getElementById('contactForm');
+const formMessages = document.getElementById('formMessages');
+
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Validación básica
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
+        // Mostrar estado de carga
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Enviando...';
+        submitBtn.disabled = true;
         
-        if (!name || !email) {
-            alert('Por favor completa los campos requeridos');
-            return;
+        // Ocultar mensajes anteriores
+        formMessages.style.display = 'none';
+        formMessages.className = '';
+        
+        try {
+            const formData = new FormData(this);
+            
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                // Éxito
+                formMessages.style.display = 'block';
+                formMessages.className = 'form-success';
+                formMessages.innerHTML = `
+                    <h4>¡Mensaje enviado con éxito!</h4>
+                    <p>Te contactaremos dentro de 24 horas. Gracias por tu interés en Cobas Taekwondo.</p>
+                `;
+                
+                // Resetear formulario
+                this.reset();
+                
+                // Scroll to message
+                formMessages.scrollIntoView({ behavior: 'smooth' });
+                
+            } else {
+                throw new Error('Error en el servidor');
+            }
+            
+        } catch (error) {
+            // Error
+            formMessages.style.display = 'block';
+            formMessages.className = 'form-error';
+            formMessages.innerHTML = `
+                <h4>Error al enviar el mensaje</h4>
+                <p>Por favor intenta nuevamente o contáctanos directamente por teléfono.</p>
+            `;
+            
+            console.error('Error:', error);
+            
+        } finally {
+            // Restaurar botón
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
         }
-        
-        // Simular envío
-        alert('¡Gracias por tu interés en Cobas Taekwondo! Te contactaremos pronto para programar tu clase experimental.');
-        this.reset();
     });
 }
 
