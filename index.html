@@ -312,34 +312,37 @@
         <div class="container">
             <h2>Contáctanos</h2>
             <div class="contact-form">
-                <form id="contactForm" action="https://formspree.io/f/mrbynzrp" method="POST">
-                    <div class="form-group">
-                        <label for="name">Nombre completo</label>
-                        <input type="text" id="name" name="name" required placeholder="Tu nombre completo">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Correo electrónico</label>
-                        <input type="email" id="email" name="email" required placeholder="tu.email@ejemplo.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Teléfono</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+1 234 567 890">
-                    </div>
-                    <div class="form-group">
-                        <label for="course">Curso de interés</label>
-                        <select id="course" name="course">
-                            <option value="">Selecciona un curso</option>
-                            <option value="infantil">Taekwondo Infantil</option>
-                            <option value="juvenil">Taekwondo Juvenil</option>
-                            <option value="adultos">Taekwondo Adultos</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Mensaje</label>
-                        <textarea id="message" name="message" placeholder="Cuéntanos tus objetivos o preguntas..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
-                </form>
+                    <form id="contactForm" action="https://formspree.io/f/mrbynzrp" method="POST">
+                        <div class="form-group">
+                            <label for="name">Nombre completo *</label>
+                            <input type="text" id="name" name="name" required placeholder="Tu nombre completo">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo electrónico *</label>
+                            <input type="email" id="email" name="email" required placeholder="tu.email@ejemplo.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Teléfono</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+1 234 567 890">
+                        </div>
+                        <div class="form-group">
+                            <label for="course">Curso de interés</label>
+                            <select id="course" name="course">
+                                <option value="">Selecciona un curso</option>
+                                <option value="infantil">Taekwondo Infantil</option>
+                                <option value="juvenil">Taekwondo Juvenil</option>
+                                <option value="adultos">Taekwondo Adultos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje *</label>
+                            <textarea id="message" name="message" required placeholder="Cuéntanos tus objetivos o preguntas..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                        
+                        <!-- 👇 AGREGAR ESTE DIV PARA LOS MENSAJES 👇 -->
+                        <div id="formMessages" style="display: none;"></div>
+                    </form>
             </div>
         </div>
     </section>
