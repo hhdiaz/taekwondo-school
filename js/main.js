@@ -36,51 +36,64 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Formulario de contacto
 // Formspree Integration 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔧 Inicializando formulario de contacto...');
+    
     const contactForm = document.getElementById('contactForm');
     
     if (!contactForm) {
-        console.log('Formulario no encontrado');
+        console.error('❌ Formulario con ID "contactForm" no encontrado en la página');
         return;
+    }
+
+    console.log('✅ Formulario encontrado:', contactForm);
+
+    // Crear contenedor de mensajes si no existe
+    let formMessages = document.getElementById('formMessages');
+    if (!formMessages) {
+        console.log('📝 Creando contenedor de mensajes...');
+        formMessages = document.createElement('div');
+        formMessages.id = 'formMessages';
+        formMessages.style.display = 'none';
+        formMessages.style.marginTop = '20px';
+        formMessages.style.padding = '15px';
+        formMessages.style.borderRadius = '8px';
+        contactForm.appendChild(formMessages);
+        console.log('✅ Contenedor de mensajes creado');
     }
 
     contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        console.log('Formulario enviado'); // Para debug
-        
-        // Obtener el botón de enviar
+        console.log('🚀 Iniciando envío del formulario...');
+
+        // Obtener el botón de enviar de forma segura
         const submitBtn = this.querySelector('button[type="submit"]');
         if (!submitBtn) {
-            console.error('Botón de enviar no encontrado');
+            console.error('❌ Botón de enviar no encontrado');
+            this.showMessage('Error: Botón no encontrado', 'error');
             return;
         }
-        
-        // Guardar texto original
+
+        // Guardar texto original y estado
         const originalText = submitBtn.textContent;
+        const originalHTML = submitBtn.innerHTML;
         
         // Estado de carga
         submitBtn.textContent = 'Enviando...';
         submitBtn.disabled = true;
-        
-        // Buscar o crear contenedor de mensajes
-        let formMessages = document.getElementById('formMessages');
-        if (!formMessages) {
-            formMessages = document.createElement('div');
-            formMessages.id = 'formMessages';
-            formMessages.style.display = 'none';
-            this.appendChild(formMessages);
-        }
-        
-        // Ocultar y limpiar mensajes anteriores
-        formMessages.style.display = 'none';
-        formMessages.className = '';
-        formMessages.innerHTML = '';
-        
+        submitBtn.style.opacity = '0.7';
+        submitBtn.style.cursor = 'not-allowed';
+
         try {
-            console.log('Enviando datos a Formspree...');
+            console.log('📤 Enviando datos a Formspree...');
             
             const formData = new FormData(this);
             
+            // Mostrar datos que se enviarán (para debug)
+            for (let [key, value] of formData.entries()) {
+                console.log(`📋 ${key}: ${value}`);
+            }
+
             const response = await fetch(this.action, {
                 method: 'POST',
                 body: formData,
@@ -88,61 +101,93 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Accept': 'application/json'
                 }
             });
-            
-            console.log('Respuesta recibida:', response.status);
-            
+
+            console.log('📨 Respuesta recibida. Status:', response.status);
+
             if (response.ok) {
                 // ÉXITO
-                formMessages.style.display = 'block';
-                formMessages.className = 'form-success';
-                formMessages.innerHTML = `
+                console.log('✅ Formulario enviado exitosamente');
+                this.showMessage(`
                     <h4>✅ ¡Mensaje enviado con éxito!</h4>
                     <p>Te contactaremos dentro de 24 horas. Gracias por tu interés en Cobas Taekwondo.</p>
-                `;
+                `, 'success');
                 
                 // Resetear formulario
                 this.reset();
                 
-                // Scroll suave al mensaje
-                formMessages.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-                
-                console.log('Formulario enviado exitosamente');
-                
             } else {
                 // ERROR DEL SERVIDOR
-                throw new Error(`Error ${response.status}: ${response.statusText}`);
+                const errorText = await response.text();
+                console.error('❌ Error del servidor:', response.status, errorText);
+                throw new Error(`Error ${response.status}: No se pudo enviar el formulario`);
             }
             
         } catch (error) {
             // ERROR DE CONEXIÓN
-            console.error('Error al enviar formulario:', error);
-            
-            formMessages.style.display = 'block';
-            formMessages.className = 'form-error';
-            formMessages.innerHTML = `
+            console.error('❌ Error de conexión:', error);
+            this.showMessage(`
                 <h4>❌ Error al enviar el mensaje</h4>
                 <p>Por favor intenta nuevamente o contáctanos directamente por teléfono.</p>
-                <small>Error: ${error.message}</small>
-            `;
+                <small><strong>Error técnico:</strong> ${error.message}</small>
+            `, 'error');
             
-            // Scroll al error
+        } finally {
+            // Siempre restaurar el botón
+            console.log('🔄 Restaurando estado del botón...');
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = '1';
+            submitBtn.style.cursor = 'pointer';
+            submitBtn.textContent = originalText;
+            submitBtn.innerHTML = originalHTML;
+            console.log('✅ Botón restaurado');
+        }
+    });
+
+    // Función helper para mostrar mensajes
+    contactForm.showMessage = function(message, type) {
+        const formMessages = document.getElementById('formMessages');
+        if (!formMessages) {
+            console.error('❌ No se puede mostrar mensaje: contenedor no encontrado');
+            return;
+        }
+
+        // Estilos según el tipo
+        formMessages.style.display = 'block';
+        formMessages.style.padding = '20px';
+        formMessages.style.borderRadius = '8px';
+        formMessages.style.marginTop = '20px';
+        
+        if (type === 'success') {
+            formMessages.style.background = '#d4edda';
+            formMessages.style.border = '1px solid #c3e6cb';
+            formMessages.style.color = '#155724';
+            formMessages.style.borderLeft = '4px solid #28a745';
+        } else if (type === 'error') {
+            formMessages.style.background = '#f8d7da';
+            formMessages.style.border = '1px solid #f5c6cb';
+            formMessages.style.color = '#721c24';
+            formMessages.style.borderLeft = '4px solid #dc3545';
+        }
+
+        formMessages.innerHTML = message;
+
+        // Scroll suave al mensaje
+        setTimeout(() => {
             formMessages.scrollIntoView({ 
                 behavior: 'smooth',
                 block: 'center'
             });
-            
-        } finally {
-            // Siempre restaurar el botón
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-            console.log('Estado del botón restaurado');
+        }, 100);
+
+        // Auto-ocultar mensajes de éxito después de 10 segundos
+        if (type === 'success') {
+            setTimeout(() => {
+                formMessages.style.display = 'none';
+            }, 10000);
         }
-    });
-    
-    console.log('Formulario de contacto inicializado correctamente');
+    };
+
+    console.log('🎉 Formulario de contacto inicializado correctamente');
 });
 
 // Header scroll effect
