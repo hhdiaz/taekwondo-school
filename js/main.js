@@ -39,18 +39,18 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🔧 Inicializando formulario de contacto...');
     
     const contactForm = document.getElementById('contactForm');
-    
-    if (!contactForm) {
-        console.error('❌ Formulario con ID "contactForm" no encontrado en la página');
-        return;
-    }
+    // debug
+    // if (!contactForm) {
+    //     console.error('❌ Formulario con ID "contactForm" no encontrado en la página');
+    //     return;
+    // }
 
-    console.log('✅ Formulario encontrado:', contactForm);
+    // console.log('✅ Formulario encontrado:', contactForm);
 
     // Crear contenedor de mensajes si no existe
     let formMessages = document.getElementById('formMessages');
     if (!formMessages) {
-        console.log('📝 Creando contenedor de mensajes...');
+        // console.log('📝 Creando contenedor de mensajes...');
         formMessages = document.createElement('div');
         formMessages.id = 'formMessages';
         formMessages.style.display = 'none';
@@ -58,13 +58,13 @@ document.addEventListener('DOMContentLoaded', function() {
         formMessages.style.padding = '15px';
         formMessages.style.borderRadius = '8px';
         contactForm.appendChild(formMessages);
-        console.log('✅ Contenedor de mensajes creado');
+        // console.log('✅ Contenedor de mensajes creado');
     }
 
     contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        console.log('🚀 Iniciando envío del formulario...');
+        // console.log('🚀 Iniciando envío del formulario...');
 
         // Obtener el botón de enviar de forma segura
         const submitBtn = this.querySelector('button[type="submit"]');
@@ -85,13 +85,13 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.style.cursor = 'not-allowed';
 
         try {
-            console.log('📤 Enviando datos a Formspree...');
+            // console.log('📤 Enviando datos a Formspree...');
             
             const formData = new FormData(this);
             
             // Mostrar datos que se enviarán (para debug)
             for (let [key, value] of formData.entries()) {
-                console.log(`📋 ${key}: ${value}`);
+                // console.log(`📋 ${key}: ${value}`);
             }
 
             const response = await fetch(this.action, {
@@ -102,11 +102,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            console.log('📨 Respuesta recibida. Status:', response.status);
+            // console.log('📨 Respuesta recibida. Status:', response.status);
 
             if (response.ok) {
                 // ÉXITO
-                console.log('✅ Formulario enviado exitosamente');
+                // console.log('✅ Formulario enviado exitosamente');
                 this.showMessage(`
                     <h4>✅ ¡Mensaje enviado con éxito!</h4>
                     <p>Te contactaremos dentro de 24 horas. Gracias por tu interés en Cobas Taekwondo.</p>
@@ -133,13 +133,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
         } finally {
             // Siempre restaurar el botón
-            console.log('🔄 Restaurando estado del botón...');
+            // console.log('🔄 Restaurando estado del botón...');
             submitBtn.disabled = false;
             submitBtn.style.opacity = '1';
             submitBtn.style.cursor = 'pointer';
             submitBtn.textContent = originalText;
             submitBtn.innerHTML = originalHTML;
-            console.log('✅ Botón restaurado');
+            // console.log('✅ Botón restaurado');
         }
     });
 
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    console.log('🎉 Formulario de contacto inicializado correctamente');
+    // console.log('🎉 Formulario de contacto inicializado correctamente');
 });
 
 // Header scroll effect
