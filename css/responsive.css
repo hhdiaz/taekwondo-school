@@ -4,10 +4,6 @@
         flex-direction: column;
     }
     
-    .about-image {
-        order: -1;
-    }
-    
     .schedule-card.featured {
         transform: none;
     }
@@ -122,3 +118,66 @@
 
 
 
+/* Carrusel Responsive - VERSIÓN CORREGIDA */
+@media (max-width: 992px) {
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        align-items: center;
+    }
+    
+    .about-text, 
+    .about-image {
+        width: 100%;
+        max-width: 600px;
+    }
+    
+    .carousel-container {
+        height: 350px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+      
+    .carousel-container {
+        height: 300px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-image {
+            order: -1;  /* Carrusel arriba */
+        }
+        
+        .about-text {
+            order: 1;   /* Texto abajo */
+        }
+
+    .carousel-container {
+        height: 250px;
+    }
+    
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+    
+    .carousel-indicators {
+        bottom: 10px;
+        gap: 8px;
+    }
+    
+    .indicator {
+        width: 8px;
+        height: 8px;
+    }
+}

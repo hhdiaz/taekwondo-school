@@ -63,7 +63,40 @@
                     <a href="#courses" class="btn btn-outline">Ver Nuestros Cursos</a>
                 </div>
                 <div class="about-image">
-                    <img src="images/about-dojo.jpg" alt="Dojo Cobas Taekwondo">
+                    <!-- Carrusel de imágenes -->
+                    <div class="carousel-container">
+                                <div class="carousel">
+                                    <div class="carousel-slide active">
+                                        <img src="images/dojo-1.jpg" alt="Dojo Cobas Taekwondo - Vista principal">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="images/dojo-2.jpg" alt="Dojo Cobas Taekwondo - Área de entrenamiento">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="images/dojo-3.jpg" alt="Dojo Cobas Taekwondo - Clase en progreso">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="images/dojo-4.jpg" alt="Dojo Cobas Taekwondo - Equipamiento">
+                                    </div>
+                                </div>
+                        
+                                <!-- Flechas de navegación -->
+                                <button class="carousel-btn prev-btn" aria-label="Imagen anterior">
+                                    <span>‹</span>
+                                </button>
+                                <button class="carousel-btn next-btn" aria-label="Siguiente imagen">
+                                    <span>›</span>
+                                </button>
+                        
+                                <!-- Indicadores (puntos) -->
+                                <div class="carousel-indicators">
+                                    <button class="indicator active" data-slide="0" aria-label="Ir a imagen 1"></button>
+                                    <button class="indicator" data-slide="1" aria-label="Ir a imagen 2"></button>
+                                    <button class="indicator" data-slide="2" aria-label="Ir a imagen 3"></button>
+                                    <button class="indicator" data-slide="3" aria-label="Ir a imagen 4"></button>
+                                </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -388,5 +421,6 @@
     <!-- JavaScript -->
     <script src="js/main.js"></script>
     <script src="js/components.js"></script>
+    <script src="js/carousel.js"></script>
 </body>
 </html>

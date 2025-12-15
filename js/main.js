@@ -187,6 +187,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
+            // Inicializar carrusel si existe el archivo
+            if (typeof SimpleCarousel !== 'undefined') {
+                new SimpleCarousel('.carousel-container');
+            }
+
     // console.log('🎉 Formulario de contacto inicializado correctamente');
 });
 
