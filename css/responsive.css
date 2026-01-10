@@ -131,8 +131,11 @@
     .about-image {
         width: 100%;
         max-width: 600px;
+        
     }
-    
+    .about-image {
+            order: -1;  /* Carrusel arriba */
+        }
     .carousel-container {
         height: 350px;
         margin: 0 auto;
@@ -145,6 +148,9 @@
         flex-direction: column;
         gap: 30px;
     }
+    .about-image {
+            order: -1;  /* Carrusel arriba */
+        }
       
     .carousel-container {
         height: 300px;
