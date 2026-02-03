@@ -80,7 +80,17 @@
     .container {
         width: 95%;
     }
-    
+    .hero {
+    background: linear-gradient(rgba(18, 18, 18, 0.6), rgba(180, 2, 2, 0.4)), url('../images/hero-bg-movil.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--white);
+    margin-top: 70px;
+    }
     .hero-content h1 {
         font-size: 2rem;
     }
