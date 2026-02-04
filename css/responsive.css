@@ -1,3 +1,10 @@
+@media (max-width: 1200px) {
+    .achievements-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
 /* Tablets */
 @media (max-width: 992px) {
     .about-content {
@@ -73,6 +80,48 @@
     .logo h1 {
         font-size: 1.5rem;
     }
+
+/* seccion de logros */
+.achievements {
+        padding: 70px 0;
+    }
+    
+    .achievements .section-header h2 {
+        font-size: 2.3rem;
+    }
+    
+    .achievements-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin: 40px 0;
+    }
+    
+    .achievement-card {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .achievement-card-inner {
+        padding: 30px 25px;
+    }
+    
+    .achievement-number .counter {
+        font-size: 3rem;
+    }
+    
+    .achievement-title {
+        font-size: 1.3rem;
+    }
+    
+    .quote-text {
+        font-size: 1.1rem;
+    }
+    
+    .achievements-quote {
+        padding: 30px 25px;
+    }
+
+
 }
 
 /* Móviles */
@@ -123,6 +172,33 @@
     
     .logo h1 {
         font-size: 1.3rem;
+    }
+    /* seccion de logros */
+    .achievement-card-inner {
+        padding: 25px 20px;
+    }
+    
+    .achievement-icon {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 20px;
+    }
+    
+    .achievement-icon .icon {
+        font-size: 2.5rem;
+        line-height: 70px;
+    }
+    
+    .achievement-number .counter {
+        font-size: 2.8rem;
+    }
+    
+    .achievements-quote {
+        padding: 25px 20px;
+    }
+    
+    .quote-text {
+        font-size: 1rem;
     }
 }
 

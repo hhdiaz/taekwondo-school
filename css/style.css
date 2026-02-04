@@ -833,7 +833,7 @@ button[type="submit"]:disabled::after {
     top: 0;
     left: 0;
     right: 0;
-   
+    
 }
 
 .achievements .section-header h2 {
@@ -1005,88 +1005,3 @@ button[type="submit"]:disabled::after {
 
 
 
-
-
-
-
-
-
-
-
-
-/* Responsive */
-@media (max-width: 1200px) {
-    .achievements-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .achievements {
-        padding: 70px 0;
-    }
-    
-    .achievements .section-header h2 {
-        font-size: 2.3rem;
-    }
-    
-    .achievements-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-        margin: 40px 0;
-    }
-    
-    .achievement-card {
-        max-width: 400px;
-        margin: 0 auto;
-    }
-    
-    .achievement-card-inner {
-        padding: 30px 25px;
-    }
-    
-    .achievement-number .counter {
-        font-size: 3rem;
-    }
-    
-    .achievement-title {
-        font-size: 1.3rem;
-    }
-    
-    .quote-text {
-        font-size: 1.1rem;
-    }
-    
-    .achievements-quote {
-        padding: 30px 25px;
-    }
-}
-
-@media (max-width: 480px) {
-    .achievement-card-inner {
-        padding: 25px 20px;
-    }
-    
-    .achievement-icon {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 20px;
-    }
-    
-    .achievement-icon .icon {
-        font-size: 2.5rem;
-        line-height: 70px;
-    }
-    
-    .achievement-number .counter {
-        font-size: 2.8rem;
-    }
-    
-    .achievements-quote {
-        padding: 25px 20px;
-    }
-    
-    .quote-text {
-        font-size: 1rem;
-    }
-}
