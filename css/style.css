@@ -1003,7 +1003,7 @@ button[type="submit"]:disabled::after {
     opacity: 0.8;
 }
 
-//* Galería Simple y Cuadrada */
+/* Galería Simple y Cuadrada */
 .gallery-simple {
     padding: 80px 0 100px;
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);

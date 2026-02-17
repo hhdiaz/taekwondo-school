@@ -1,60 +1,52 @@
-// Galería Simple con carga de fotos ocultas
-class SimpleGallery {
+// Galería ÚNICA - Versión Simplificada
+class TaekwondoGallery {
     constructor() {
-        this.galleryContainer = document.querySelector('.gallery-grid-square');
         this.galleryItems = document.querySelectorAll('.gallery-item-square');
-        this.hiddenPhotos = document.querySelectorAll('.hidden-photo');
         this.filterButtons = document.querySelectorAll('.filter-btn-simple');
-        this.lightbox = document.getElementById('simple-lightbox');
-        this.lightboxImg = document.querySelector('.lightbox-img');
-        this.lightboxCategory = document.getElementById('lightbox-category-text');
+        this.hiddenPhotos = document.querySelectorAll('.hidden-photo');
         this.loadMoreBtn = document.querySelector('.load-more-btn');
-        this.photoCountElement = document.getElementById('photo-count');
-        this.totalPhotosElement = document.getElementById('total-photos');
+        this.lightbox = document.getElementById('simple-lightbox');
         
-        this.currentFilter = 'all';
-        this.initialPhotos = 9; // Fotos visibles al inicio
-        this.photosLoaded = this.initialPhotos;
-        this.photosPerLoad = 6; // Cuántas fotos cargar por clic
-        this.totalPhotos = this.galleryItems.length;
+        console.log(`Iniciando galería: ${this.galleryItems.length} fotos totales`);
+        console.log(`Fotos ocultas: ${this.hiddenPhotos.length}`);
         
         this.init();
     }
     
     init() {
-        console.log('Inicializando galería...');
+        // 1. Configurar filtros
+        this.setupFilters();
         
-        // Configurar total de fotos
-        if (this.totalPhotosElement) {
-            this.totalPhotosElement.textContent = this.totalPhotos;
-        }
+        // 2. Configurar botón "Cargar más"
+        this.setupLoadMore();
         
-        // Inicializar filtros
-        this.filterButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => this.filterGallery(e.target));
-        });
+        // 3. Configurar lightbox
+        this.setupLightbox();
         
-        // Inicializar lightbox
-        this.initLightbox();
-        
-        // Inicializar botón "Cargar más fotos"
-        this.initLoadMoreButton();
-        
-        // Actualizar contador inicial
+        // 4. Actualizar contador inicial
         this.updateCounter();
-        
-        console.log(`Galería lista: ${this.initialPhotos} fotos visibles de ${this.totalPhotos}`);
     }
     
-    filterGallery(clickedButton) {
-        const filter = clickedButton.getAttribute('data-filter');
+    setupFilters() {
+        console.log(`Configurando ${this.filterButtons.length} botones de filtro`);
         
-        // Actualizar botones activos
-        this.filterButtons.forEach(btn => btn.classList.remove('active'));
-        clickedButton.classList.add('active');
-        
-        this.currentFilter = filter;
-        this.applyFilter(filter);
+        this.filterButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Prevenir comportamiento por defecto
+                e.preventDefault();
+                
+                // Obtener el filtro
+                const filter = btn.getAttribute('data-filter');
+                console.log(`Filtro seleccionado: ${filter}`);
+                
+                // Actualizar botón activo
+                this.filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Aplicar filtro
+                this.applyFilter(filter);
+            });
+        });
     }
     
     applyFilter(filter) {
@@ -62,243 +54,210 @@ class SimpleGallery {
         
         let visibleCount = 0;
         
-        this.galleryItems.forEach((item, index) => {
+        this.galleryItems.forEach(item => {
             const category = item.getAttribute('data-category');
             const isHidden = item.classList.contains('hidden-photo');
             const isLoaded = !isHidden || item.dataset.loaded === 'true';
             
-            // Resetear estilos
-            item.style.opacity = '0';
-            item.style.transform = 'scale(0.95)';
-            item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            // Si no está cargado, ocultar y salir
+            if (!isLoaded) {
+                item.style.display = 'none';
+                return;
+            }
             
-            setTimeout(() => {
-                if ((filter === 'all' || category === filter) && isLoaded) {
-                    // Mostrar item
-                    item.style.display = 'block';
-                    visibleCount++;
-                    
-                    // Animación de entrada escalonada
-                    setTimeout(() => {
-                        item.style.opacity = '1';
-                        item.style.transform = 'scale(1)';
-                    }, index * 50);
-                } else {
-                    // Ocultar item
+            // Determinar si debe mostrarse
+            const shouldShow = filter === 'all' || category === filter;
+            
+            if (shouldShow) {
+                // Mostrar con animación
+                item.style.display = 'block';
+                
+                // Pequeña animación
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'scale(1)';
+                }, 10);
+                
+                visibleCount++;
+            } else {
+                // Ocultar con animación
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.9)';
+                
+                setTimeout(() => {
                     item.style.display = 'none';
-                }
-            }, 150);
+                }, 300);
+            }
         });
         
         // Actualizar contador
         this.updateCounter(visibleCount);
+        console.log(`Fotos visibles: ${visibleCount}`);
     }
     
     updateCounter(count = null) {
-        if (!this.photoCountElement) return;
+        const counter = document.getElementById('photo-count');
+        if (!counter) return;
         
         if (count === null) {
-            // Contar fotos visibles según el filtro actual
-            let visibleCount = 0;
+            // Contar manualmente
+            let visible = 0;
             this.galleryItems.forEach(item => {
-                const isHidden = item.classList.contains('hidden-photo');
-                const isLoaded = !isHidden || item.dataset.loaded === 'true';
-                const category = item.getAttribute('data-category');
-                const isVisible = window.getComputedStyle(item).display !== 'none';
-                
-                if ((this.currentFilter === 'all' || category === this.currentFilter) && 
-                    isLoaded && 
-                    isVisible) {
-                    visibleCount++;
+                if (window.getComputedStyle(item).display !== 'none') {
+                    visible++;
                 }
             });
-            
-            this.photoCountElement.textContent = visibleCount;
+            counter.textContent = visible;
         } else {
-            this.photoCountElement.textContent = count;
+            counter.textContent = count;
         }
     }
     
-    initLightbox() {
-        // Cerrar lightbox con botón
-        document.getElementById('close-lightbox-btn')?.addEventListener('click', () => {
-            this.closeLightbox();
-        });
-        
-        // Cerrar al hacer clic fuera de la imagen
-        this.lightbox?.addEventListener('click', (e) => {
-            if (e.target === this.lightbox || e.target.classList.contains('lightbox-image-container')) {
-                this.closeLightbox();
-            }
-        });
-        
-        // Cerrar con Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                this.closeLightbox();
-            }
-        });
-        
-        // Delegación de eventos para abrir lightbox
-        this.galleryContainer.addEventListener('click', (e) => {
-            const galleryItem = e.target.closest('.gallery-item-square');
-            
-            if (galleryItem && window.getComputedStyle(galleryItem).display !== 'none') {
-                this.openLightbox(galleryItem);
-            }
-        });
-    }
-    
-    openLightbox(item) {
-        // Obtener datos de la imagen
-        const imgSrc = item.querySelector('img').src;
-        const imgAlt = item.querySelector('img').alt;
-        const category = item.querySelector('.photo-category')?.textContent || 'Galería';
-        
-        // Actualizar lightbox
-        this.lightboxImg.src = imgSrc;
-        this.lightboxImg.alt = imgAlt;
-        this.lightboxCategory.textContent = category;
-        
-        // Mostrar lightbox
-        this.lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    closeLightbox() {
-        this.lightbox.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-    
-    initLoadMoreButton() {
+    setupLoadMore() {
         if (!this.loadMoreBtn) return;
         
         this.loadMoreBtn.addEventListener('click', () => {
             this.loadMorePhotos();
         });
         
-        // Verificar estado inicial del botón
+        // Verificar si ya están todas las fotos cargadas
         this.checkLoadMoreButton();
     }
     
     loadMorePhotos() {
-        if (this.photosLoaded >= this.totalPhotos) {
-            this.hideLoadMoreButton();
+        const hiddenArray = Array.from(this.hiddenPhotos);
+        const photosToLoad = hiddenArray
+            .filter(photo => !photo.dataset.loaded)
+            .slice(0, 6); // Cargar 6 fotos por clic
+        
+        if (photosToLoad.length === 0) {
+            this.loadMoreBtn.style.display = 'none';
             return;
         }
         
-        // Estado de carga
-        const originalHTML = this.loadMoreBtn.innerHTML;
-        this.loadMoreBtn.classList.add('loading');
-        this.loadMoreBtn.innerHTML = `
-            <span>Cargando...</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2V6M12 18V22M4 12H8M16 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-        `;
+        // Mostrar estado de carga
+        this.loadMoreBtn.innerHTML = '<span>Cargando...</span>';
         this.loadMoreBtn.disabled = true;
         
         // Simular carga
         setTimeout(() => {
-            this.showMorePhotos();
+            photosToLoad.forEach((photo, index) => {
+                // Marcar como cargada
+                photo.dataset.loaded = 'true';
+                
+                // Mostrar con animación
+                setTimeout(() => {
+                    photo.classList.remove('hidden-photo');
+                    photo.style.display = 'block';
+                    photo.style.opacity = '0';
+                    photo.style.transform = 'translateY(20px)';
+                    
+                    // Animación de entrada
+                    setTimeout(() => {
+                        photo.style.opacity = '1';
+                        photo.style.transform = 'translateY(0)';
+                        photo.style.transition = 'all 0.4s ease';
+                    }, 100);
+                    
+                    // Aplicar filtro actual
+                    const category = photo.getAttribute('data-category');
+                    const activeFilter = document.querySelector('.filter-btn-simple.active')?.getAttribute('data-filter') || 'all';
+                    
+                    if (activeFilter === 'all' || category === activeFilter) {
+                        photo.style.display = 'block';
+                    } else {
+                        photo.style.display = 'none';
+                    }
+                    
+                }, index * 100);
+            });
             
             // Restaurar botón
-            this.loadMoreBtn.classList.remove('loading');
-            this.loadMoreBtn.innerHTML = originalHTML;
+            this.loadMoreBtn.innerHTML = '<span>Cargar más fotos</span>';
             this.loadMoreBtn.disabled = false;
             
-            // Verificar si aún quedan fotos
+            // Actualizar contador
+            this.updateCounter();
+            
+            // Verificar si quedan más fotos
             this.checkLoadMoreButton();
             
         }, 800);
     }
     
-    showMorePhotos() {
-        // Obtener fotos ocultas no cargadas
-        const hiddenPhotosArray = Array.from(this.hiddenPhotos);
-        const photosToShow = hiddenPhotosArray
-            .filter(photo => !photo.dataset.loaded)
-            .slice(0, this.photosPerLoad);
+    checkLoadMoreButton() {
+        const hiddenArray = Array.from(this.hiddenPhotos);
+        const remaining = hiddenArray.filter(photo => !photo.dataset.loaded).length;
         
-        if (photosToShow.length === 0) return;
+        if (remaining <= 0) {
+            this.loadMoreBtn.style.display = 'none';
+        }
+    }
+    
+    setupLightbox() {
+        const lightbox = this.lightbox;
+        const closeBtn = document.getElementById('close-lightbox-btn');
+        const lightboxImg = document.querySelector('.lightbox-img');
+        const categoryText = document.getElementById('lightbox-category-text');
         
-        console.log(`Mostrando ${photosToShow.length} fotos adicionales`);
+        if (!lightbox) return;
         
-        photosToShow.forEach((photo, index) => {
-            // Marcar como cargada
-            photo.dataset.loaded = 'true';
+        // Abrir lightbox al hacer clic en cualquier foto
+        document.addEventListener('click', (e) => {
+            const galleryItem = e.target.closest('.gallery-item-square');
             
-            // Preparar para animación
-            photo.style.opacity = '0';
-            photo.style.transform = 'translateY(20px) scale(0.95)';
-            photo.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            
-            // Remover clase hidden
-            setTimeout(() => {
-                photo.classList.remove('hidden-photo');
+            if (galleryItem && window.getComputedStyle(galleryItem).display !== 'none') {
+                const img = galleryItem.querySelector('img');
+                const category = galleryItem.querySelector('.photo-category')?.textContent || 'Galería';
                 
-                // Aplicar animación
-                setTimeout(() => {
-                    photo.style.opacity = '1';
-                    photo.style.transform = 'translateY(0) scale(1)';
-                    
-                    // Verificar si debe mostrarse según el filtro actual
-                    const category = photo.getAttribute('data-category');
-                    if (this.currentFilter === 'all' || category === this.currentFilter) {
-                        photo.style.display = 'block';
-                    }
-                    
-                    // Limpiar estilos después de la animación
-                    setTimeout(() => {
-                        photo.style.opacity = '';
-                        photo.style.transform = '';
-                        photo.style.transition = '';
-                    }, 500);
-                    
-                }, 100);
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                categoryText.textContent = category;
                 
-            }, index * 100);
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
         });
         
-        // Actualizar contadores
-        this.photosLoaded += photosToShow.length;
-        this.updateCounter();
+        // Cerrar lightbox
+        closeBtn?.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
         
-        console.log(`Total fotos cargadas: ${this.photosLoaded}/${this.totalPhotos}`);
-    }
-    
-    checkLoadMoreButton() {
-        const remainingPhotos = this.totalPhotos - this.photosLoaded;
+        // Cerrar al hacer clic fuera
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
         
-        if (remainingPhotos <= 0) {
-            this.hideLoadMoreButton();
-        } else {
-            // Actualizar texto del botón si quieres mostrar cuántas quedan
-            const btnText = this.loadMoreBtn.querySelector('span');
-            if (btnText && remainingPhotos < this.photosPerLoad) {
-                btnText.textContent = `Cargar últimas ${remainingPhotos} fotos`;
+        // Cerrar con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
             }
-        }
-    }
-    
-    hideLoadMoreButton() {
-        if (this.loadMoreBtn) {
-            this.loadMoreBtn.classList.add('hidden');
-            
-            // Actualizar contador final
-            if (this.photoCountElement) {
-                this.photoCountElement.textContent = this.totalPhotos;
-            }
-            
-            console.log('Todas las fotos han sido cargadas');
-        }
+        });
     }
 }
 
-// Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    const gallery = new SimpleGallery();
+// Inicializar SOLO UNA VEZ cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM cargado - Inicializando galería Taekwondo');
     
-    // Hacer disponible globalmente para debugging
-    window.gallery = gallery;
+    // Limpiar cualquier instancia anterior
+    if (window.taekwondoGallery) {
+        console.log('Limpiando instancia anterior...');
+        window.taekwondoGallery = null;
+    }
+    
+    // Crear nueva instancia
+    window.taekwondoGallery = new TaekwondoGallery();
+    
+    // Para debugging
+    console.log('Galería inicializada. Comandos disponibles:');
+    console.log('- window.taekwondoGallery.applyFilter("entrenamiento")');
+    console.log('- window.taekwondoGallery.updateCounter()');
 });
