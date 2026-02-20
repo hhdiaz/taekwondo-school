@@ -467,7 +467,7 @@ p {
     background: linear-gradient(135deg, 
         rgba(248, 246, 240, 0.95) 0%, 
         rgba(255, 255, 255, 1) 100%);
-    padding: 0px;
+    padding:2px, 0px;
     position: relative;
     overflow: hidden;
 }
