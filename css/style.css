@@ -399,8 +399,8 @@ p {
     font-weight: 500;
 }
 
-/* Sección Maestros */
-.instructors {
+/* Sección Maestros antigua */
+/* .instructors {
     background-color: var(--light);
 }
 
@@ -458,7 +458,373 @@ p {
 
 .instructor-bio {
     color: var(--text-light);
+} */
+
+
+
+/* Sección Maestro */
+.master-section {
+    background: linear-gradient(135deg, 
+        rgba(248, 246, 240, 0.95) 0%, 
+        rgba(255, 255, 255, 1) 100%);
+    padding: 0px;
+    position: relative;
+    overflow: hidden;
 }
+
+.master-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    
+}
+
+/* Tarjeta del maestro */
+.master-card {
+    max-width: 1100px;
+    margin: 50px auto 0;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 50px;
+    background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.master-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(132, 113, 34, 0.1);
+}
+
+/* Imagen */
+.master-image {
+    position: relative;
+    height: 100%;
+    min-height: 500px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    overflow: hidden;
+}
+
+.master-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s ease;
+    opacity: 0.95;
+}
+
+.master-card:hover .master-image img {
+    transform: scale(1.05);
+}
+
+.master-rank {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.master-rank .dan {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--secondary);
+    line-height: 1;
+}
+
+.master-rank .kukkiwon {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* Información */
+.master-info {
+    padding: 60px 40px;
+    background: white;
+}
+
+.master-name {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.master-title {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    font-weight: 500;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+}
+
+.master-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+/* Descripción */
+.master-description {
+    margin-top: 40px;
+}
+
+.master-quote {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--text-light);
+    line-height: 1.7;
+    padding: 20px;
+    background: rgba(248, 246, 240, 0.5);
+    border-radius: 15px;
+    border-left: 4px solid var(--primary);
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.master-quote::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    font-size: 4rem;
+    color: rgba(132, 113, 34, 0.1);
+    font-family: serif;
+}
+
+.master-bio {
+    margin-bottom: 30px;
+}
+
+.master-bio p {
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+/* Estadísticas */
+.master-stats {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.master-stats .stat {
+    text-align: center;
+    min-width: 100px;
+    flex: 1;
+}
+
+.master-stats .stat-number {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.master-stats .stat-label {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* Redes sociales */
+.master-social {
+    display: flex;
+    gap: 15px;
+}
+
+.social-link {
+    width: 48px;
+    height: 48px;
+    background: var(--light);
+    color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(132, 113, 34, 0.1);
+}
+
+.social-link:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(132, 113, 34, 0.3);
+}
+
+/* Mensaje final */
+.master-message {
+    max-width: 800px;
+    margin: 60px auto 0;
+    padding: 30px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(132, 113, 34, 0.1);
+}
+
+.message-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.message-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.message-content p {
+    font-size: 1.2rem;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .master-card {
+        grid-template-columns: 1fr;
+        gap: 0;
+        max-width: 700px;
+    }
+    
+    .master-image {
+        min-height: 400px;
+    }
+    
+    .master-info {
+        padding: 50px 40px;
+    }
+    
+    .master-name {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .master-section {
+        padding: 80px 0;
+    }
+    
+    .master-info {
+        padding: 40px 30px;
+    }
+    
+    .master-name {
+        font-size: 2.2rem;
+    }
+    
+    .master-title {
+        font-size: 1.1rem;
+    }
+    
+    .master-quote {
+        font-size: 1.1rem;
+        padding: 20px 15px;
+    }
+    
+    .master-bio p {
+        font-size: 1rem;
+    }
+    
+    .master-stats {
+        gap: 20px;
+    }
+    
+    .master-stats .stat-number {
+        font-size: 2rem;
+    }
+    
+    .message-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .message-content p {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .master-info {
+        padding: 30px 20px;
+    }
+    
+    .master-name {
+        font-size: 2rem;
+    }
+    
+    .master-rank {
+        left: 20px;
+        bottom: 20px;
+        padding: 12px 20px;
+    }
+    
+    .master-rank .dan {
+        font-size: 1.5rem;
+    }
+    
+    .master-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .master-stats .stat {
+        text-align: left;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+    }
+    
+    .master-stats .stat-number {
+        font-size: 1.8rem;
+        min-width: 80px;
+    }
+    
+    .master-social {
+        justify-content: center;
+    }
+    
+    .master-message {
+        padding: 25px 20px;
+    }
+    
+    .message-content p {
+        font-size: 1rem;
+    }
+}
+
+
 
 /* Sección FAQ Mejorada */
 .faq {
