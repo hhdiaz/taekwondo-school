@@ -467,7 +467,7 @@ p {
     background: linear-gradient(135deg, 
         rgba(248, 246, 240, 0.95) 0%, 
         rgba(255, 255, 255, 1) 100%);
-    padding:2px, 0px;
+    
     position: relative;
     overflow: hidden;
 }
@@ -1296,10 +1296,10 @@ button[type="submit"]:disabled::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, 
+    /* background: linear-gradient(135deg, 
         rgba(132, 113, 34, 0.1), 
         rgba(180, 2, 2, 0.05));
-    border-radius: 50%;
+    border-radius: 50%; */
     z-index: 1;
     transition: transform 0.3s ease;
 }
@@ -1595,8 +1595,8 @@ button[type="submit"]:disabled::after {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background: white;
-    border-radius: 12px;
+    /* background: white;
+    border-radius: 12px; */
     
     margin-top: 30px;
 }
