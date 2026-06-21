@@ -33,24 +33,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Formulario de contacto
-// Formspree Integration 
+// Formulario de contacto con reCAPTCHA
 document.addEventListener('DOMContentLoaded', function() {
-    // console.log('🔧 Inicializando formulario de contacto...');
-    
-    const contactForm = document.getElementById('contactForm');
-    // debug
-    // if (!contactForm) {
-    //     console.error('❌ Formulario con ID "contactForm" no encontrado en la página');
-    //     return;
-    // }
 
-    // console.log('✅ Formulario encontrado:', contactForm);
+    const contactForm = document.getElementById('contactForm');
+    if (!contactForm) return;
 
     // Crear contenedor de mensajes si no existe
     let formMessages = document.getElementById('formMessages');
     if (!formMessages) {
-        // console.log('📝 Creando contenedor de mensajes...');
         formMessages = document.createElement('div');
         formMessages.id = 'formMessages';
         formMessages.style.display = 'none';
@@ -58,26 +49,26 @@ document.addEventListener('DOMContentLoaded', function() {
         formMessages.style.padding = '15px';
         formMessages.style.borderRadius = '8px';
         contactForm.appendChild(formMessages);
-        // console.log('✅ Contenedor de mensajes creado');
     }
 
     contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-        
-        // console.log('🚀 Iniciando envío del formulario...');
 
-        // Obtener el botón de enviar de forma segura
-        const submitBtn = this.querySelector('button[type="submit"]');
-        if (!submitBtn) {
-            console.error('❌ Botón de enviar no encontrado');
-            this.showMessage('Error: Botón no encontrado', 'error');
+        // ✅ VERIFICAR reCAPTCHA PRIMERO - antes de cualquier otra cosa
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+            this.showMessage('<h4>⚠️ Por favor marca la casilla "No soy un robot"</h4>', 'error');
             return;
         }
 
-        // Guardar texto original y estado
+        // Obtener el botón de enviar
+        const submitBtn = this.querySelector('button[type="submit"]');
+        if (!submitBtn) return;
+
+        // Guardar estado original del botón
         const originalText = submitBtn.textContent;
         const originalHTML = submitBtn.innerHTML;
-        
+
         // Estado de carga
         submitBtn.textContent = 'Enviando...';
         submitBtn.disabled = true;
@@ -85,25 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.style.cursor = 'not-allowed';
 
         try {
-            // console.log('📤 Enviando datos a Formspree...');
-            // Verificar que el reCAPTCHA fue completado
-                const recaptchaResponse = grecaptcha.getResponse();
-                if (!recaptchaResponse) {
-                    this.showMessage('<h4>⚠️ Por favor marca la casilla "No soy un robot"</h4>', 'error');
-                    submitBtn.disabled = false;
-                    submitBtn.style.opacity = '1';
-                    submitBtn.style.cursor = 'pointer';
-                    submitBtn.innerHTML = originalHTML;
-                    return;
-                }
-
-
             const formData = new FormData(this);
-            
-            // Mostrar datos que se enviarán (para debug)
-            for (let [key, value] of formData.entries()) {
-                // console.log(`📋 ${key}: ${value}`);
-            }
 
             const response = await fetch(this.action, {
                 method: 'POST',
@@ -113,62 +86,48 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // console.log('📨 Respuesta recibida. Status:', response.status);
-
             if (response.ok) {
                 // ÉXITO
-                // console.log('✅ Formulario enviado exitosamente');
                 this.showMessage(`
                     <h4>✅ ¡Mensaje enviado con éxito!</h4>
                     <p>Te contactaremos dentro de 24 horas. Gracias por tu interés en Cobas Taekwondo.</p>
                 `, 'success');
-                
-                // Resetear formulario
+
+                // Resetear formulario y captcha
                 this.reset();
                 grecaptcha.reset();
-                
+
             } else {
-                // ERROR DEL SERVIDOR
                 const errorText = await response.text();
-                console.error('❌ Error del servidor:', response.status, errorText);
                 throw new Error(`Error ${response.status}: No se pudo enviar el formulario`);
             }
-            
+
         } catch (error) {
-            // ERROR DE CONEXIÓN
-            console.error('❌ Error de conexión:', error);
             this.showMessage(`
                 <h4>❌ Error al enviar el mensaje</h4>
                 <p>Por favor intenta nuevamente o contáctanos directamente por teléfono.</p>
-                <small><strong>Error técnico:</strong> ${error.message}</small>
             `, 'error');
-            
+            grecaptcha.reset();
+
         } finally {
-            // Siempre restaurar el botón
-            // console.log('🔄 Restaurando estado del botón...');
+            // Restaurar el botón siempre
             submitBtn.disabled = false;
             submitBtn.style.opacity = '1';
             submitBtn.style.cursor = 'pointer';
-            submitBtn.textContent = originalText;
             submitBtn.innerHTML = originalHTML;
-            // console.log('✅ Botón restaurado');
         }
     });
 
-    // Función helper para mostrar mensajes
+    // Función para mostrar mensajes de éxito/error
     contactForm.showMessage = function(message, type) {
         const formMessages = document.getElementById('formMessages');
-        if (!formMessages) {
-            console.error('❌ No se puede mostrar mensaje: contenedor no encontrado');
-            return;
-        }
+        if (!formMessages) return;
 
-        // Estilos según el tipo
         formMessages.style.display = 'block';
         formMessages.style.padding = '20px';
         formMessages.style.borderRadius = '8px';
         formMessages.style.marginTop = '20px';
-        
+
         if (type === 'success') {
             formMessages.style.background = '#d4edda';
             formMessages.style.border = '1px solid #c3e6cb';
@@ -183,15 +142,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         formMessages.innerHTML = message;
 
-        // Scroll suave al mensaje
         setTimeout(() => {
-            formMessages.scrollIntoView({ 
+            formMessages.scrollIntoView({
                 behavior: 'smooth',
                 block: 'center'
             });
         }, 100);
 
-        // Auto-ocultar mensajes de éxito después de 10 segundos
         if (type === 'success') {
             setTimeout(() => {
                 formMessages.style.display = 'none';
@@ -199,15 +156,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-            // Inicializar carrusel si existe el archivo
-            if (typeof SimpleCarousel !== 'undefined') {
-                new SimpleCarousel('.carousel-container');
-            }
-
-    // console.log('🎉 Formulario de contacto inicializado correctamente');
 });
 
-// Header scroll effect
+// Efecto del header al hacer scroll
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.header');
     if (window.scrollY > 100) {
