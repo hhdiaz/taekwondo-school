@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <!-- Fuentes de Google -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -386,7 +388,7 @@
         <section class="gallery-simple" id="gallery">
             <div class="container">
                 <div class="gallery-header">
-                    <h2>Capturando <span class="highlight">Momentos</span></h2>
+                    <h2>Capturando<span class="highlight">Momentos</span></h2>
                     <p class="gallery-description">Momentos que reflejan nuestro compromiso con la excelencia marcial</p>
                 </div>
 
@@ -754,6 +756,7 @@
                             <label for="message">Mensaje *</label>
                             <textarea id="message" name="message" required placeholder="Cuéntanos tus objetivos o preguntas..."></textarea>
                         </div>
+                        <div class="g-recaptcha" data-sitekey="6LeVKSwtAAAAAKBrTfXTvZyBItQTVvb-qKto70sO" style="margin-bottom: 20px;"></div>
                         <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
                         
                         <!-- 👇 EL DIV DE MENSAJES - IMPORTANTE 👇 -->

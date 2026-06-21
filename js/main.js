@@ -86,7 +86,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             // console.log('📤 Enviando datos a Formspree...');
-            
+            // Verificar que el reCAPTCHA fue completado
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    this.showMessage('<h4>⚠️ Por favor marca la casilla "No soy un robot"</h4>', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                    submitBtn.style.cursor = 'pointer';
+                    submitBtn.innerHTML = originalHTML;
+                    return;
+                }
+
+
             const formData = new FormData(this);
             
             // Mostrar datos que se enviarán (para debug)
@@ -114,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Resetear formulario
                 this.reset();
+                grecaptcha.reset();
                 
             } else {
                 // ERROR DEL SERVIDOR
