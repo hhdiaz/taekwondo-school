@@ -75,6 +75,8 @@
       .logo-img {
         width: 40px;
         height: 40px;
+        padding-left: 0;
+        margin-left: 75px;
     }
     
     .logo h1 {
@@ -163,11 +165,14 @@
     }
     .logo {
         gap: 10px;
+        
     }
     
     .logo-img {
         width: 40px;
         height: 40px;
+        padding-left: 0px;
+        margin-left: 75px;
     }
     
     .logo h1 {

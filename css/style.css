@@ -131,7 +131,8 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    padding: 10px 0px;
+    
 }
 
 /* Logo styles */
@@ -139,13 +140,15 @@ p {
     display: flex;
     align-items: center;
     gap: 15px;
-    
+    padding-left: 0;
+    margin-left: -75px;
 }
 
 .logo-img {
     width: 60px;  /* Ajusta según el tamaño de tu logo */
     height: 60px;
     object-fit: contain;
+    
 }
 
 .logo h1 {
